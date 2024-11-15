@@ -3,7 +3,7 @@
   box-shadow: 0px 5px rgba(59, 59, 59, 0.452) 1px 1px 1px 1px;
 }
 
-.container {
+.main-content {
   margin-left: 20%;
   padding: 20px;
   background: #e6e6e6;
@@ -11,11 +11,25 @@
   width: 80%;
 }
 
-.shadow-header {
-  box-shadow: 0px 10px 20px rgba(59, 59, 59, 0.452);
-}
-.shadow-custom {
-  background: rgb(255, 249, 249);
+.form-container {
+  background-color: #9bc5d6;
+
   border-radius: 8px;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.486);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.692);
+}
+.btn-custom-green {
+  background-color: #64c27a !important;
+  color: white;
+}
+.btn-custom-red {
+  background-color: #d15a66 !important;
+  color: white;
+}
+.btn-custom-blue {
+  background-color: #5982ad !important;
+  color: white;
+}
+.btn-custom-yellow {
+  background-color: #ebc554 !important;
+  color: black;
 }
