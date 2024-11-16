@@ -17,6 +17,10 @@
   border-radius: 8px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.692);
 }
+
+#item_btn {
+  gap: 10px;
+}
 .btn-custom-green {
   background-color: #64c27a !important;
   color: white;
@@ -32,4 +36,9 @@
 .btn-custom-yellow {
   background-color: #ebc554 !important;
   color: black;
+}
+
+#itemTable {
+  box-shadow: 0px 5px rgba(59, 59, 59, 0.452) 1px 1px 1px 1px;
+  cursor: pointer;
 }

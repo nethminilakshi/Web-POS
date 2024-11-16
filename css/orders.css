@@ -1,14 +1,46 @@
-.shadow-header {
-  box-shadow: 0px 10px 20px rgba(59, 59, 59, 0.452);
-}
-.bg-invoice {
-  background-color: rgb(235, 235, 235);
-}
-.bg-customarired {
+.main-content {
+  margin-left: 20%;
+  padding: 20px;
   background: #e6e6e6;
+  min-height: 100vh;
+  width: 80%;
 }
 
-.purchase {
-  border-radius: 3px;
-  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.486);
+.form-container {
+  background-color: #d0d0e7;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.form-label {
+  color: #4a4a4a;
+  font-weight: 500;
+}
+/* .table-header {
+  background-color: #4285f4;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+} */
+.btn-purchase {
+  background-color: #64c27a !important;
+  border-color: #4285f4;
+}
+.btn-update {
+  background-color: #d15a66 !important;
+  border-color: #34a853;
+}
+.btn-delete,
+.btn-remove {
+  background-color: #5982ad !important;
+  border-color: #ea4335;
+}
+.btn-reset {
+  background-color: #ebc554 !important;
+  border-color: #00bcd4;
+}
+.item-order-table {
+  box-shadow: 0px 5px rgba(59, 59, 59, 0.452) 1px 1px 1px 1px;
+  cursor: pointer;
 }

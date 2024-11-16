@@ -28,8 +28,6 @@
       integrity="sha384-ZenhVNpHmPQ0oW9R76g8gleU1HzwYAqPfD6NbJMVzJrQSqSYld7cyqUMeLtTTAw1"
       crossorigin="anonymous"
     />
-    <!-- <script src="/model/customerModel.js"></script>
-    <script src="/DB/database.js"></script> -->
   </head>
   <body>
     <script src="Assets/lib/jquery-3.7.1.min.js"></script>
@@ -48,7 +46,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#customers-section">
+            <a class="nav-link" href="#customer-section">
               <i class="fas fa-users"></i>
               Customers
             </a>
@@ -68,7 +66,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="fas fa-cog"></i>
-              Settings
+              Orderdetails
             </a>
           </li>
           <li class="nav-item">
@@ -398,30 +396,29 @@
                       <div class="col-md-6">
                         <label for="qty" class="form-label">Qty :</label>
                         <input
-                          type="text"
+                          type="tel"
                           class="form-control"
                           id="qty"
                           placeholder="Qty"
                           required
                         />
                       </div>
-                      <br />
+
+                      <div class="col-md-6">
+                        <label for="description" class="form-label"
+                          >Description</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          rows="3"
+                          placeholder="Enter Description"
+                          required
+                        ></textarea>
+                      </div>
                     </div>
 
-                    <div class="col-md-6">
-                      <label for="description" class="form-label"
-                        >Description</label
-                      >
-                      <textarea
-                        class="form-control"
-                        id="description"
-                        rows="3"
-                        placeholder="Enter Description"
-                        required
-                      ></textarea>
-                    </div>
-
-                    <div class="d-flex btn-container">
+                    <div class="d-flex btn-container" id="item_btn">
                       <button
                         type="button"
                         class="btn btn-custom-green"
@@ -445,7 +442,7 @@
                         Delete Item
                       </button>
                       <button
-                        type="button"
+                        type="reset"
                         class="btn btn-custom-yellow"
                         id="item_clean_btn"
                       >
@@ -467,14 +464,14 @@
                   >
                     <thead class="table-dark">
                       <tr id="tablerow">
-                        <th>Item code</th>
-                        <th>Name</th>
-                        <th>Unit price</th>
-                        <th>Qty</th>
-                        <th>Description</th>
+                        <th scope="col">Item code</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Unit price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Description</th>
                       </tr>
                     </thead>
-                    <tbody id="itemTableBody">
+                    <tbody id="item-tbl-body">
                       <tr></tr>
                     </tbody>
                   </table>
@@ -489,7 +486,7 @@
     <!-- Orders Section -->
 
     <section class="container-fluid p-3 bg-light" id="orders-section">
-      <div class="container">
+      <!-- <div class="container">
         <div class="row label p-2 m-auto">
           <div class="col-md-12">
             <h1 class="fw-medium text-start my-auto">
@@ -787,6 +784,253 @@
             </div>
           </div>
         </div>
+      </div> -->
+
+      <div class="container-fluid">
+        <div class="main-content">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <div class="form-container">
+                <h2 class="mb-4">Invoice Details</h2>
+                <form>
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Order Id :</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        value="order-002"
+                        readonly
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Order Date :</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        value="11/16/2024"
+                        readonly
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Customer Id</label>
+                    <div class="col-sm-8">
+                      <select class="form-select">
+                        <option>Select Customer Id</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Customer Name</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Customer Name Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Total</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Total Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Discount</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Discount Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Sub Total</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Sub Total Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Cash</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Cash Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Balance</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Balance Here"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="text-end">
+                    <button type="button" class="btn btn-purchase text-white">
+                      Purchase
+                    </button>
+                    <button type="button" class="btn btn-update text-white">
+                      Update
+                    </button>
+                    <button type="button" class="btn btn-delete text-white">
+                      Delete
+                    </button>
+                    <button type="button" class="btn btn-reset text-white">
+                      Reset
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Select Items Form -->
+            <div class="col-md-6">
+              <div class="form-container">
+                <h2 class="mb-4">Select Items</h2>
+                <form>
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Item Code</label>
+                    <div class="col-sm-8">
+                      <select
+                        class="form-select"
+                        class="form-select"
+                        aria-label="Disabled select example"
+                        id="item_code1"
+                      >
+                        <option>Select Item Code</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Item Name</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="item_name1"
+                        placeholder="Item Name Here"
+                        disabled
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Price</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="price1"
+                        placeholder="Price Here"
+                        disabled
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Qty on Hand</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="qty_on_hand"
+                        placeholder="Qty on hand Here"
+                        disabled
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mb-3 row">
+                    <label class="col-sm-4 form-label">Getting Qty</label>
+                    <div class="col-sm-8">
+                      <input
+                        type="number"
+                        class="form-control"
+                        placeholder="Qty Here"
+                        id="getQty"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="text-end mb-3">
+                    <button
+                      type="button"
+                      class="btn btn-purchase text-white"
+                      id="addBtn"
+                    >
+                      Add
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-update text-white"
+                      id="UpdateBtn3"
+                    >
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-remove text-white"
+                      id="removeBtn"
+                    >
+                      Remove
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-reset text-white"
+                      id="resetItemDetailsBtn"
+                    >
+                      Clear
+                    </button>
+                  </div>
+
+                  <div id="tableForOrder" class="col m-3">
+                    <table class="table" id="item-order-table">
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">Item Code</th>
+                          <th scope="col">Item Name</th>
+                          <th scope="col">Price Per Kg</th>
+                          <th scope="col">Qty On Hand</th>
+                          <th scope="col">Qty</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -803,7 +1047,7 @@
     <script src="assets/js/index.js"></script> -->
 
     <script type="module" src="/controllers/CustomerController.js"></script>
-    <script type="module" src="controller/itemController.js"></script>
+    <script type="module" src="/controllers/ItemController.js"></script>
     <script type="module" src="controller/OrderController.js"></script>
     <script type="module" src="controller/orderDetailsController.js"></script>
   </body>

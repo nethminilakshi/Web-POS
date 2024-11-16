@@ -1,176 +1,196 @@
-import ItemModel from "../model/itemModel.js";
-import { item_arr } from "../DB/database.js";
-import { loadItems } from "./OrderController.js";
+import { customer_db, item_db } from "../DB/database.js";
+import { itemModel } from "../model/itemModel.js";
 
-$(document).ready(function () {
-  $("#itemCode").val(generateItemCode());
-});
+let itemCode = $("#itemCode");
+let itemName = $("#itemName");
+let unitPrice = $("#unitPrice");
+let qty = $("#qty");
+let description = $("#description");
 
-let generateItemCode = function generateItemCode() {
-  let id = item_arr.length + 1;
-  return "I0" + id;
-};
+let submit = $("#item_btn>button").eq(0);
+let update = $("#item_btn>button").eq(1);
+let delete_btn = $("#item_btn>button").eq(2);
+let reset = $("#item_btn>button").eq(3);
 
-let setItemCode = () => {
-  $("#itemCode").val(generateItemCode());
-};
-const loadItemTable = () => {
-  $("#itemTableBody").empty();
+function generateItemCode() {
+  let highestItemCode = 0;
 
-  item_arr.map((item) => {
-    console.log(item);
-    let data = `<tr><td>${item.itemCode}</td><td>${item.name}</td><td>${item.unitPrice}</td><td>${item.qty}</td><td>${item.description}</td></tr>`;
-    $("#itemTableBody").append(data);
+  for (let i = 0; i < item_db.length; i++) {
+    const numericPart = parseInt(item_db[i].itemCode.split("-")[1]);
+
+    if (!isNaN(numericPart) && numericPart > highestItemCode) {
+      highestItemCode = numericPart;
+    }
+  }
+
+  return `I-${String(highestItemCode + 1).padStart(3, "0")}`;
+}
+
+function resetColumns() {
+  reset.click();
+  itemCode.val(generateItemCode());
+  submit.prop("disabled", false);
+  delete_btn.prop("disabled", true);
+  update.prop("disabled", true);
+}
+
+$("#item_page")
+  .eq(0)
+  .on("click", function () {
+    itemCode.val(generateItemCode());
+    populateItemTBL();
   });
-};
-let itemCount = 0;
-$("#item-count").text(itemCount);
 
-const cleanItemForm = () => {
-  $("#name").val("");
-  $("#unitPrice").val("");
-  $("#qty").val("");
-  $("#description").val("");
-};
+function populateItemTBL() {
+  $("#item-tbl-body").eq(0).empty();
+  item_db.map((item) => {
+    $("#item-tbl-body")
+      .eq(0)
+      .append(
+        `<tr>
+                <th scope="row">${item.itemCode}</th>
+                <td>${item.itemName}</td>
+                <td>${item.unitPrice}</td>
+                <td>${item.qty}</td>
+                <td>${item.description}</td>
+            </tr>`
+      );
+  });
+}
 
-$("#itbtn").on("click", function () {
-  let item_code = generateItemCode();
-  let name = $("#name").val();
-  let unit_price = $("#unitPrice").val();
-  let qty = $("#qty").val();
-  let description = $("#description").val();
+function validation(value, message, test) {
+  if (!value) {
+    showValidationError("Null Input", "Input " + message);
+    return false;
+  }
+  if (test === null) {
+    return true;
+  }
+  if (!test) {
+    showValidationError("Invalid Input", "Invalid Input " + message);
+    return false;
+  }
+  return true;
+}
 
-  if (name.length === 0) {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Input",
-      text: "Invalid Name",
-    });
-  } else if (unit_price.length === 0) {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Input",
-      text: "Invalid unitPrice",
-    });
-  } else if (qty.length === 0) {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Input",
-      text: "Invalid qty",
-    });
-  } else if (description.length === 0) {
-    Swal.fire({
-      icon: "error",
-      title: "Invalid Input",
-      text: "Invalid Description",
-    });
-  } else {
-    let item = new ItemModel(itemCode, name, unit_price, qty, description);
+/*Show Validation Error*/
+function showValidationError(title, text) {
+  Swal.fire({
+    icon: "error",
+    title: title,
+    text: text,
+    footer: '<a href="">Why do I have this issue?</a>',
+  });
+}
 
-    item_arr.push(item);
+submit.on("click", function () {
+  let itemCodeValue = itemCode.val();
+  let itemNameValue = itemName.val().trim();
+  let priceValue = parseFloat(unitPrice.val());
+  let qtyOnHandValue = parseInt(qty.val(), 10);
+  let descriptionValue = description.val().trim();
 
-    cleanItemForm();
-    loadItems();
-    loadItemTable();
-    setItemCode();
+  if (
+    validation(itemNameValue, "item name", null) &&
+    validation(priceValue, "Price", null) &&
+    validation(qtyOnHandValue, "Qty On Hand", null) &&
+    validation(descriptionValue, "Description", null)
+  ) {
+    let item = new itemModel(
+      itemCodeValue,
+      itemNameValue,
+      priceValue,
+      qtyOnHandValue,
+      descriptionValue
+    );
+
+    Swal.fire("Save Successfully !", "Successful", "success");
+
+    item_db.push(item);
+    populateItemTBL();
+    resetColumns();
   }
 });
 
-let item_update_index;
-let item_delete_index;
+$("#itemTable").on("click", "tbody tr", function () {
+  let itemCodeValue = $(this).find("th").text();
+  console.log(itemCodeValue);
+  let itemNameValue = $(this).find("td:eq(0)").text();
+  let priceValue = $(this).find("td:eq(1)").text();
+  let qtyValue = $(this).find("td:eq(2)").text();
+  let descriptionValue = $(this).find("td:eq(3)").text();
 
-$("#itemTableBody").on("click", "tr", function () {
-  let value = $(this).text();
-  let index = $(this).index();
-  console.log(index);
-  let item_obj = item_arr[index];
-  console.log(item_obj);
+  itemCode.val(itemCodeValue);
+  itemName.val(itemNameValue);
+  unitPrice.val(priceValue);
+  qty.val(qtyValue);
+  description.val(descriptionValue);
 
-  //update customer
-  item_update_index = index;
-
-  //delete customer
-  item_delete_index = index;
-
-  let itemCode = item_obj.item_code;
-  let name = item_obj.name;
-  let unit_price = item_obj.unitPrice;
-  let qty = item_obj.qty;
-  let description = item_obj.description;
-
-  $("#itemCode").val(itemCode);
-  $("#name").val(name);
-  $("#unitPrice").val(unit_price);
-  $("#qty").val(qty);
-  $("#description").val(description);
+  submit.prop("disabled", true);
+  delete_btn.prop("disabled", false);
+  update.prop("disabled", false);
 });
 
-$("#item_update_btn").on("click", function () {
-  let index = item_update_index;
+update.on("click", function () {
+  let itemCodeValue = itemCode.val();
+  let itemNameValue = itemName.val().trim();
+  let priceValue = parseFloat(unitPrice.val());
+  let qtyOnHandValue = parseInt(qty.val(), 10);
+  let descriptionValue = description.val().trim();
 
-  let itemCode = $("#item_code").val();
-  let name = $("#name").val();
-  let unit_price = $("#unitPrice").val();
-  let qty = $("#qty").val();
-  let description = $("#description").val();
-
-  let item = new ItemModel(
-    item_arr[index].itemCode,
-    name,
-    unit_price,
-    qty,
-    description
-  );
-  item_arr[item_update_index] = item;
-  cleanItemForm();
-  loadItemTable();
-  setItemCode();
-});
-
-$("#item_delete_btn").on("click", function () {
-  const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success",
-      cancelButton: "btn btn-danger",
-    },
-    buttonsStyling: false,
-  });
-  swalWithBootstrapButtons
-    .fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
-      reverseButtons: true,
-    })
-    .then((result) => {
-      if (result.isConfirmed) {
-        swalWithBootstrapButtons.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
-      } else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire({
-          title: "Cancelled",
-          text: "Your imaginary file is safe :)",
-          icon: "error",
-        });
+  if (
+    validation(itemNameValue, "item name", null) &&
+    validation(priceValue, "Price", null) &&
+    validation(qtyOnHandValue, "Qty On Hand", null) &&
+    validation(descriptionValue, "Description", null)
+  ) {
+    item_db.map((item) => {
+      if (item.itemCode === itemCodeValue) {
+        item.itemName = itemNameValue;
+        item.unitPrice = priceValue;
+        item.qty = qtyOnHandValue;
+        item.description = descriptionValue;
       }
     });
 
-  item_arr.splice(item_delete_index);
+    Swal.fire("Update Successfully !", "Successful", "success");
 
-  cleanItemForm();
-  loadItemTable();
-  setItemCode();
+    populateItemTBL();
+    resetColumns();
+  }
 });
 
-$("#item_clean_btn").on("click", function () {
-  cleanItemForm();
+reset.on("click", function (e) {
+  e.preventDefault();
+  itemCode.val(generateItemCode());
+  itemName.val("");
+  unitPrice.val("");
+  qty.val("");
+  description.val("");
+  submit.prop("disabled", false);
+  delete_btn.prop("disabled", true);
+  update.prop("disabled", true);
+});
+
+delete_btn.on("click", function () {
+  let itemCodeValue = itemCode.val();
+
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Delete",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let index = item_db.findIndex((item) => item.itemCode === itemCodeValue);
+      item_db.splice(index, 1);
+      populateItemTBL();
+      resetColumns();
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      submit.prop("disabled", false);
+    }
+  });
 });

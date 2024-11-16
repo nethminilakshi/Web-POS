@@ -1,8 +1,9 @@
-export class ItemModel {
-  constructor(itemCode, itemName, price, qty) {
+export class itemModel {
+  constructor(itemCode, itemName, unitPrice, qty, description) {
     this.itemCode = itemCode;
     this.itemName = itemName;
-    this.price = price;
+    this.unitPrice = unitPrice;
     this.qty = qty;
+    this.description = description;
   }
 }
