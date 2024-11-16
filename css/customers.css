@@ -12,19 +12,32 @@
   border-radius: 8px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.692);
 }
+
+#customer_btn {
+  gap: 10px;
+}
 .btn-custom-green {
   background-color: #64c27a !important;
+  border-radius: 8px;
   color: white;
 }
 .btn-custom-red {
   background-color: #d15a66 !important;
+  border-radius: 8px;
   color: white;
 }
 .btn-custom-blue {
   background-color: #5982ad !important;
+  border-radius: 8px;
   color: white;
 }
 .btn-custom-yellow {
   background-color: #ebc554 !important;
+  border-radius: 8px;
   color: black;
+}
+#customerTable {
+  border-radius: 8px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.692);
+  cursor: pointer;
 }

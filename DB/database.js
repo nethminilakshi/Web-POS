@@ -1,8 +1,4 @@
-export let cus_arr = [];
-export let item_arr = [];
-
-export let orders = [];
-
-export let orderDetails = [];
-
-export let cart = [];
+export var customer_db = [];
+export var item_db = [];
+export var order_db = [];
+export var order_details_db = [];
