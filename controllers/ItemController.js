@@ -3,7 +3,7 @@ import { itemModel } from "../model/itemModel.js";
 
 let itemCode = $("#itemCode");
 let itemName = $("#itemName");
-let unitPrice = $("#unitPrice");
+let price = $("#price");
 let qty = $("#qty");
 let description = $("#description");
 
@@ -50,7 +50,7 @@ function populateItemTBL() {
         `<tr>
                 <th scope="row">${item.itemCode}</th>
                 <td>${item.itemName}</td>
-                <td>${item.unitPrice}</td>
+                <td>${item.price}</td>
                 <td>${item.qty}</td>
                 <td>${item.description}</td>
             </tr>`
@@ -86,7 +86,7 @@ function showValidationError(title, text) {
 submit.on("click", function () {
   let itemCodeValue = itemCode.val();
   let itemNameValue = itemName.val().trim();
-  let priceValue = parseFloat(unitPrice.val());
+  let priceValue = parseFloat(price.val());
   let qtyOnHandValue = parseInt(qty.val(), 10);
   let descriptionValue = description.val().trim();
 
@@ -122,7 +122,7 @@ $("#itemTable").on("click", "tbody tr", function () {
 
   itemCode.val(itemCodeValue);
   itemName.val(itemNameValue);
-  unitPrice.val(priceValue);
+  price.val(priceValue);
   qty.val(qtyValue);
   description.val(descriptionValue);
 
@@ -134,7 +134,7 @@ $("#itemTable").on("click", "tbody tr", function () {
 update.on("click", function () {
   let itemCodeValue = itemCode.val();
   let itemNameValue = itemName.val().trim();
-  let priceValue = parseFloat(unitPrice.val());
+  let priceValue = parseFloat(price.val());
   let qtyOnHandValue = parseInt(qty.val(), 10);
   let descriptionValue = description.val().trim();
 
@@ -147,7 +147,7 @@ update.on("click", function () {
     item_db.map((item) => {
       if (item.itemCode === itemCodeValue) {
         item.itemName = itemNameValue;
-        item.unitPrice = priceValue;
+        item.price = priceValue;
         item.qty = qtyOnHandValue;
         item.description = descriptionValue;
       }
@@ -164,7 +164,7 @@ reset.on("click", function (e) {
   e.preventDefault();
   itemCode.val(generateItemCode());
   itemName.val("");
-  unitPrice.val("");
+  price.val("");
   qty.val("");
   description.val("");
   submit.prop("disabled", false);

@@ -387,7 +387,7 @@
                         <input
                           type="text"
                           class="form-control"
-                          id="unitPrice"
+                          id="price"
                           placeholder="Enter UnitPrice"
                           required
                         />
@@ -794,43 +794,56 @@
                 <h2 class="mb-4">Invoice Details</h2>
                 <form>
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Order Id :</label>
+                    <label for="order_id" class="col-sm-4 form-label"
+                      >Order Id :</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="text"
                         class="form-control"
-                        value="order-002"
-                        readonly
+                        id="order_id"
+                        disabled
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Order Date :</label>
+                    <label for="order_date" class="col-sm-4 form-label"
+                      >Order Date :</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="text"
                         class="form-control"
-                        value="11/16/2024"
-                        readonly
+                        id="order_date"
+                        disabled
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Customer Id</label>
+                    <label for="customer_id1" class="col-sm-4 form-label"
+                      >Customer Id</label
+                    >
                     <div class="col-sm-8">
-                      <select class="form-select">
+                      <select
+                        class="form-select"
+                        id="customer_id1"
+                        aria-label="Disabled select example"
+                      >
                         <option>Select Customer Id</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Customer Name</label>
+                    <label for="customer_name1" class="col-sm-4 form-label"
+                      >Customer Name</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="text"
+                        id="customer_name1"
                         class="form-control"
                         placeholder="Customer Name Here"
                       />
@@ -838,72 +851,102 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Total</label>
+                    <label for="total" class="col-sm-4 form-label">Total</label>
                     <div class="col-sm-8">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
+                        id="total"
                         placeholder="Total Here"
+                        disabled
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Discount</label>
+                    <label for="discount" class="col-sm-4 form-label"
+                      >Discount</label
+                    >
                     <div class="col-sm-8">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
+                        id="discount"
                         placeholder="Discount Here"
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Sub Total</label>
+                    <label for="sub_total" class="col-sm-4 form-label"
+                      >Sub Total</label
+                    >
                     <div class="col-sm-8">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
+                        id="sub_total"
                         placeholder="Sub Total Here"
+                        disabled
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Cash</label>
+                    <label for="Cash" class="col-sm-4 form-label">Cash</label>
                     <div class="col-sm-8">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
+                        id="Cash"
                         placeholder="Cash Here"
                       />
                     </div>
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Balance</label>
+                    <label for="balance" class="col-sm-4 form-label"
+                      >Balance</label
+                    >
                     <div class="col-sm-8">
                       <input
-                        type="text"
+                        type="number"
                         class="form-control"
+                        id="balance"
                         placeholder="Balance Here"
+                        disabled
                       />
                     </div>
                   </div>
 
-                  <div class="text-end">
-                    <button type="button" class="btn btn-purchase text-white">
+                  <div class="text-end" id="order_btn">
+                    <button
+                      id="submitBtn2"
+                      type="button"
+                      class="btn btn-purchase text-white"
+                    >
                       Purchase
                     </button>
-                    <button type="button" class="btn btn-update text-white">
+                    <button
+                      id="updateBtn2"
+                      type="button"
+                      class="btn btn-update text-white"
+                    >
                       Update
                     </button>
-                    <button type="button" class="btn btn-delete text-white">
+                    <button
+                      id="deleteBtn2"
+                      type="button"
+                      class="btn btn-delete text-white"
+                    >
                       Delete
                     </button>
-                    <button type="button" class="btn btn-reset text-white">
-                      Reset
+                    <button
+                      id="resetBtn2"
+                      type="reset"
+                      class="btn btn-reset text-white"
+                    >
+                      Clear
                     </button>
                   </div>
                 </form>
@@ -916,10 +959,11 @@
                 <h2 class="mb-4">Select Items</h2>
                 <form>
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Item Code</label>
+                    <label for="item_code1" class="col-sm-4 form-label"
+                      >Item Code</label
+                    >
                     <div class="col-sm-8">
                       <select
-                        class="form-select"
                         class="form-select"
                         aria-label="Disabled select example"
                         id="item_code1"
@@ -930,7 +974,9 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Item Name</label>
+                    <label for="item_name1" class="col-sm-4 form-label"
+                      >Item Name</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="text"
@@ -943,7 +989,9 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Price</label>
+                    <label for="price1" class="col-sm-4 form-label"
+                      >Price</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="number"
@@ -956,7 +1004,9 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Qty on Hand</label>
+                    <label for="qty_on_hand" class="col-sm-4 form-label"
+                      >Qty on Hand</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="number"
@@ -969,19 +1019,20 @@
                   </div>
 
                   <div class="mb-3 row">
-                    <label class="col-sm-4 form-label">Getting Qty</label>
+                    <label for="getQty" class="col-sm-4 form-label"
+                      >Getting Qty</label
+                    >
                     <div class="col-sm-8">
                       <input
                         type="number"
                         class="form-control"
-                        placeholder="Qty Here"
                         id="getQty"
-                        required
+                        placeholder="Qty Here"
                       />
                     </div>
                   </div>
 
-                  <div class="text-end mb-3">
+                  <div class="text-end mb-3" id="order_item_btn">
                     <button
                       type="button"
                       class="btn btn-purchase text-white"
@@ -1034,6 +1085,39 @@
       </div>
     </section>
 
+    <!-- orderDetails section -->
+    <section class="container-fluid p-3 bg-light" id="orderDetails-section">
+      <div class="main-content">
+        <div class="row table-content m-auto">
+          <h2>Order Details</h2>
+          <div class="col-12">
+            <div class="table-responsive text-center">
+              <table
+                class="table table-hover table-striped-columns"
+                id="order-details-table"
+              >
+                <thead class="table-dark">
+                  <tr id="tablerow">
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Customer Id</th>
+                    <th scope="col">Order Date</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Sub Total</th>
+                    <th scope="col">Cash</th>
+                    <th scope="col">Balance</th>
+                  </tr>
+                </thead>
+                <tbody id="order-details-tbody">
+                  <tr></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <script src="assets/bootstrap-5.3.3-dist/js/bootstrap.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -1043,8 +1127,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- <script src="assets/js/script.js"></script>
-    <script src="assets/js/index.js"></script> -->
+    <script src="/js/script.js"></script>
 
     <script type="module" src="/controllers/CustomerController.js"></script>
     <script type="module" src="/controllers/ItemController.js"></script>
