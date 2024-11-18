@@ -3,6 +3,15 @@
   --active-bg: #7b8a9e;
 }
 
+.loading-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .sidebar {
   background: var(--sidebar-bg);
   min-height: 100vh;

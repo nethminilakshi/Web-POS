@@ -1,18 +1,21 @@
 $(document).ready(function () {
   const loadingScreen = document.querySelector("#dashboard-section");
-  loadingScreen.style.display = "block";
+  loadingScreen.style.display = "none";
+
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "none";
 
   const loadingScreen2 = document.querySelector("#customer-section");
-  loadingScreen2.style.display = "  block";
+  loadingScreen2.style.display = "  none";
 
   const loadingScreen4 = document.querySelector("#item-section");
-  loadingScreen4.style.display = "block";
+  loadingScreen4.style.display = "none";
 
-  const loadingScreen5 = document.querySelector("#order-section");
-  loadingScreen5.style.display = "block";
+  const loadingScreen5 = document.querySelector("#orders-section");
+  loadingScreen5.style.display = "none";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
-  loadingScreen6.style.display = "block";
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
+  loadingScreen6.style.display = "none";
 
   var counter = 0;
   var c = 0;
@@ -32,87 +35,102 @@ $(document).ready(function () {
 });
 
 const myFunction = function () {
-  const loadingScreen = document.querySelector(".#dashboard-section");
+  const loadingScreen = document.querySelector("#dashboard-section");
   loadingScreen.style.display = "block";
 
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "block";
+
   const loadingScreen2 = document.querySelector("#customer-section");
-  loadingScreen2.style.display = "block";
+  loadingScreen2.style.display = "none";
 
   const loadingScreen4 = document.querySelector("#item-section");
-  loadingScreen4.style.display = "block";
+  loadingScreen4.style.display = "none";
 
-  const loadingScreen5 = document.querySelector("#order-section");
-  loadingScreen5.style.display = "block";
+  const loadingScreen5 = document.querySelector("#orders-section");
+  loadingScreen5.style.display = "none";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
-  loadingScreen6.style.display = "block";
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
+  loadingScreen6.style.display = "none";
 };
 
 const myFunction1 = function () {
   const loadingScreen = document.querySelector("#dashboard-section");
-  loadingScreen.style.display = "block";
+  loadingScreen.style.display = "none";
+
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "block";
 
   const loadingScreen2 = document.querySelector("#customer-section");
   loadingScreen2.style.display = "block";
 
   const loadingScreen4 = document.querySelector("#item-section");
-  loadingScreen4.style.display = "block";
+  loadingScreen4.style.display = "none";
 
-  const loadingScreen5 = document.querySelector("#order-section");
-  loadingScreen5.style.display = "block";
+  const loadingScreen5 = document.querySelector("#orders-section");
+  loadingScreen5.style.display = "none";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
-  loadingScreen6.style.display = "block";
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
+  loadingScreen6.style.display = "none";
 };
 
 const myFunction2 = function () {
   const loadingScreen = document.querySelector("#dashboard-section");
-  loadingScreen.style.display = "block";
+  loadingScreen.style.display = "none";
+
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "block";
 
   const loadingScreen2 = document.querySelector("#customer-section");
-  loadingScreen2.style.display = "block";
+  loadingScreen2.style.display = "none";
 
   const loadingScreen4 = document.querySelector("#item-section");
   loadingScreen4.style.display = "block";
 
-  const loadingScreen5 = document.querySelector("#order-section");
-  loadingScreen5.style.display = "block";
+  const loadingScreen5 = document.querySelector("#orders-section");
+  loadingScreen5.style.display = "none";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
-  loadingScreen6.style.display = "block";
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
+  loadingScreen6.style.display = "none";
 };
 
 const myFunction3 = function () {
   const loadingScreen = document.querySelector("#dashboard-section");
-  loadingScreen.style.display = "block";
+  loadingScreen.style.display = "none";
+
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "block";
 
   const loadingScreen2 = document.querySelector("#customer-section");
-  loadingScreen2.style.display = "block";
+  loadingScreen2.style.display = "none";
 
   const loadingScreen4 = document.querySelector("#item-section");
-  loadingScreen4.style.display = "block";
+  loadingScreen4.style.display = "none";
 
-  const loadingScreen5 = document.querySelector("#order-section");
+  const loadingScreen5 = document.querySelector("#orders-section");
   loadingScreen5.style.display = "block";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
-  loadingScreen6.style.display = "block";
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
+  loadingScreen6.style.display = "none";
 };
 
 const myFunction4 = function () {
   const loadingScreen = document.querySelector("#dashboard-section");
-  loadingScreen.style.display = "block";
+  loadingScreen.style.display = "none";
+
+  const loadingScreen3 = document.querySelector(".sidebar");
+  loadingScreen3.style.display = "block";
 
   const loadingScreen2 = document.querySelector("#customer-section");
-  loadingScreen2.style.display = "block";
+  loadingScreen2.style.display = "none";
 
   const loadingScreen4 = document.querySelector("#item-section");
-  loadingScreen4.style.display = "block";
+  loadingScreen4.style.display = "none";
 
-  const loadingScreen5 = document.querySelector("#order-section");
-  loadingScreen5.style.display = "block";
+  const loadingScreen5 = document.querySelector("#orders-section");
+  loadingScreen5.style.display = "none";
 
-  const loadingScreen6 = document.querySelector("#order-details-section");
+  const loadingScreen6 = document.querySelector("#orderDetails-section");
   loadingScreen6.style.display = "block";
 };
 
