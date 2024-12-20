@@ -1,10 +1,10 @@
-import { customer_db, order_db } from "../DB/database.js";
-import { orderModel } from "../model/orderModel.js";
+import { customer_db, order_db } from "../db/db.js";
+import { OrderModel } from "../model/orderModel.js";
 
-import { order_details_db } from "../DB/database.js";
-import { orderModel } from "../model/orderDetailModel.js";
+import { order_details_db } from "../db/db.js";
+import { orderModel } from "../model/OrderDetailsModel.js";
 
-// let searchField=$('#searchField4');
+let searchField = $("#searchField4");
 
 //Order Details search
 searchField.on("input", function () {
@@ -21,9 +21,9 @@ searchField.on("input", function () {
   results.map((orderDetails, index) => {
     let tbl_row = `<tr>
                 <th scope="row">${orderDetails.order_id}</th>
-                 <td>${orderDetails.customer_id}</td>
                 <td>${orderDetails.order_date}</td>
-               <td>${orderDetails.total}</td>
+                <td>${orderDetails.customer_id}</td>
+                <td>${orderDetails.total}</td>
                 <td>${orderDetails.discount}</td>
                 <td>${calculateSubtotal(
                   orderDetails.total,
@@ -48,8 +48,8 @@ function populateTableOrderDetails() {
       .append(
         `<tr>
                 <th scope="row">${orderDetails.order_id}</th>
-                <td>${orderDetails.customer_id}</td>
                 <td>${orderDetails.order_date}</td>
+                <td>${orderDetails.customer_id}</td>
                 <td>${orderDetails.total}</td>
                 <td>${orderDetails.discount}</td>
                 <td>${calculateSubtotal(

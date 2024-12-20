@@ -1,14 +1,14 @@
-import { item_db } from "../DB/database.js";
-import { itemModel } from "../model/itemModel.js";
+import { item_db } from "../db/db.js";
+import { ItemModel } from "../model/ItemModel.js";
 
-import { customer_db } from "../DB/database.js";
-import { customerModel } from "../model/customerModel.js";
+import { customer_db } from "../db/db.js";
+import { CustomerModel } from "../model/customerModel.js";
 
-import { order_db } from "../DB/database.js";
-import { orderModel } from "../model/orderModel.js";
+import { order_db } from "../db/db.js";
+import { OrderModel } from "../model/orderModel.js";
 
-import { order_details_db } from "../DB/database.js";
-import { orderModel } from "../model/orderDetailModel.js";
+import { order_details_db } from "../db/db.js";
+import { orderModel } from "../model/OrderDetailsModel.js";
 
 let customerIdCB = $("#customer_id1");
 let itemIdCB = $("#item_code1");
@@ -62,6 +62,7 @@ $("#order_page").on("click", function () {
   deleteBtn.prop("disabled", true);
   removeBtn.prop("disabled", true);
   updateBtn2.prop("disabled", true);
+  searchField.attr("placeholder", "Search Order Id Here");
 });
 
 /*Function to populate the CustomerId Combo Box*/
@@ -541,3 +542,10 @@ function populateFields(orderIdValue) {
     );
   }
 }
+
+searchBtn.on("click", function () {
+  if (search_order) {
+    populateFields(searchField.val());
+    searchField.val("");
+  }
+});

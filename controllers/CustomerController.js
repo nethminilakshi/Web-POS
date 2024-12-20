@@ -1,27 +1,53 @@
-import { customer_db } from "../DB/database.js";
-import { customerModel } from "../model/customerModel.js";
+import { customer_db } from "../db/db.js";
+import { CustomerModel } from "../model/customerModel.js";
 
 let customerId = $("#customerId");
 let customerName = $("#customerName");
 let customerAddress = $("#address");
-let salary = $("#salary");
 let mobile = $("#mobile");
 
-let save = $("#customer_btn>button").eq(0);
+let submit = $("#customer_btn>button").eq(0);
 let update = $("#customer_btn>button").eq(1);
 let delete_btn = $("#customer_btn>button").eq(2);
 let reset = $("#customer_btn>button").eq(3);
 
+let searchBtn = $("#search2");
+let searchField = $("#searchField2");
+
 const mobilePattern = new RegExp(
   "^(?:0|94|\\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\\d)\\d{6}$"
 );
+
+searchField.on("input", function () {
+  let search_term = searchField.val();
+
+  let results = customer_db.filter(
+    (item) =>
+      item.customer_id.toLowerCase().startsWith(search_term.toLowerCase()) ||
+      item.customer_name.toLowerCase().startsWith(search_term.toLowerCase()) ||
+      item.customer_address
+        .toLowerCase()
+        .startsWith(search_term.toLowerCase()) ||
+      item.mobile.toLowerCase().startsWith(search_term.toLowerCase())
+  );
+
+  $("#customer-tbl-body").eq(0).empty();
+  results.map((item, index) => {
+    let tbl_row = `<tr>
+            <th scope="row">${item.customer_id}</th>
+            <td>${item.customer_name}</td>
+            <td>${item.customer_address}</td>
+            <td>${item.mobile}</td>
+        </tr>`;
+    $("#customer-tbl-body").eq(0).append(tbl_row);
+  });
+});
 
 // --------------- clear inputs
 const cleanInputs = () => {
   $("#customerId").val(generateCustomerId());
   $("#customerName").val("");
   $("#address").val("");
-  $("#salary").val("");
   $("#mobile").val("");
 };
 
@@ -42,27 +68,24 @@ function generateCustomerId() {
   return `C-${String(highestCustId + 1).padStart(3, "0")}`;
 }
 
-save.on("click", () => {
+submit.on("click", () => {
   let idValue = customerId.val();
   let nameValue = customerName.val();
   let addressValue = customerAddress.val();
-  let salaryValue = salary.val();
   let mobileValue = mobile.val();
 
   if (
     validation(nameValue, "customer name", null) &&
     validation(addressValue, "Address", null) &&
-    validation(salaryValue, "Salary", null) &&
     validation(mobileValue, "Contact", mobilePattern.test(mobileValue))
   ) {
-    let customerDetails = new customerModel(
+    let customerDetails = new CustomerModel(
       idValue,
       nameValue,
       addressValue,
-      salaryValue,
       mobileValue
     );
-    Swal.fire("Saved Successfully !", "Successful", "success");
+    Swal.fire("Save Successfully !", "Successful", "success");
 
     customer_db.push(customerDetails);
 
@@ -83,7 +106,6 @@ function populateCustomerTbl() {
                 <th scope="row">${customer.customer_id}</th>
                 <td>${customer.customer_name}</td>
                 <td>${customer.customer_address}</td>
-                <td>${customer.salary}</td>
                 <td>${customer.mobile}</td>
             </tr>`
       );
@@ -122,13 +144,11 @@ $("#customerTable").on("click", "tbody tr", function () {
   let customerIdValue = $(this).find("th").text();
   let nameValue = $(this).find("td:eq(0)").text();
   let addressValue = $(this).find("td:eq(1)").text();
-  let salaryValue = $(this).find("td:eq(2)").text();
-  let contactValue = $(this).find("td:eq(3)").text();
+  let contactValue = $(this).find("td:eq(2)").text();
 
   customerId.val(customerIdValue);
   customerName.val(nameValue);
   customerAddress.val(addressValue);
-  salary.val(salaryValue);
   mobile.val(contactValue);
 });
 
@@ -136,20 +156,17 @@ update.on("click", function () {
   let idValue = customerId.val();
   let nameValue = customerName.val();
   let addressValue = customerAddress.val();
-  let salaryValue = salary.val();
   let mobileValue = mobile.val();
 
   if (
     validation(nameValue, "customer name", null) &&
     validation(addressValue, "Address", null) &&
-    validation(salaryValue, "Salary", null) &&
     validation(mobileValue, "Contact", mobilePattern.test(mobileValue))
   ) {
     customer_db.map((customer) => {
       if (String(customer.customer_id) === idValue) {
         customer.customer_name = nameValue;
         customer.customer_address = addressValue;
-        customer.salary = salaryValue;
         customer.mobile = mobileValue;
       }
     });
@@ -159,7 +176,7 @@ update.on("click", function () {
     populateCustomerTbl();
     cleanInputs();
 
-    save.prop("disabled", false);
+    submit.prop("disabled", false);
   }
 });
 
@@ -183,7 +200,7 @@ delete_btn.on("click", function () {
       populateCustomerTbl();
       cleanInputs();
       Swal.fire("Deleted!", "Your file has been deleted.", "success");
-      save.prop("disabled", false);
+      submit.prop("disabled", false);
     }
   });
 });
@@ -193,9 +210,8 @@ reset.on("click", function (e) {
   customerId.val(generateCustomerId());
   customerName.val("");
   customerAddress.val("");
-  salary.val("");
   mobile.val("");
-  save.prop("disabled", false);
+  submit.prop("disabled", false);
   delete_btn.prop("disabled", true);
   update.prop("disabled", true);
 });

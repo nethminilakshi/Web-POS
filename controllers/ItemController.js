@@ -1,34 +1,60 @@
-import { customer_db, item_db } from "../DB/database.js";
-import { itemModel } from "../model/itemModel.js";
+import { customer_db, item_db } from "../db/db.js";
+import { ItemModel } from "../model/ItemModel.js";
 
-let itemCode = $("#itemCode");
+let itemId = $("#itemId");
 let itemName = $("#itemName");
 let price = $("#price");
 let qty = $("#qty");
-let description = $("#description");
 
 let submit = $("#item_btn>button").eq(0);
 let update = $("#item_btn>button").eq(1);
 let delete_btn = $("#item_btn>button").eq(2);
 let reset = $("#item_btn>button").eq(3);
 
+let searchBtn = $("#search3");
+let searchField = $("#searchField3");
+
+searchField.on("input", function () {
+  let search_term = searchField.val();
+
+  let results = item_db.filter(
+    (item) =>
+      item.itemCode.toLowerCase().startsWith(search_term.toLowerCase()) ||
+      item.itemName.toLowerCase().startsWith(search_term.toLowerCase())
+  );
+
+  $("#item-tbl-body").eq(0).empty();
+  results.map((item, index) => {
+    let tbl_row = `<tr>
+            <th scope="row">${item.itemCode}</th>
+            <td>${item.itemName}</td>
+            <td>${item.price}</td>
+            <td>${item.qty}</td>
+        </tr>`;
+    $("#item-tbl-body").eq(0).append(tbl_row);
+  });
+});
+
 function generateItemCode() {
   let highestItemCode = 0;
 
   for (let i = 0; i < item_db.length; i++) {
+    // Extract the numeric part of the item code
     const numericPart = parseInt(item_db[i].itemCode.split("-")[1]);
 
+    // Check if the numeric part is greater than the current highest
     if (!isNaN(numericPart) && numericPart > highestItemCode) {
       highestItemCode = numericPart;
     }
   }
 
+  // Increment the highest numeric part and format as "item-XXX"
   return `I-${String(highestItemCode + 1).padStart(3, "0")}`;
 }
 
 function resetColumns() {
   reset.click();
-  itemCode.val(generateItemCode());
+  itemId.val(generateItemCode());
   submit.prop("disabled", false);
   delete_btn.prop("disabled", true);
   update.prop("disabled", true);
@@ -37,7 +63,7 @@ function resetColumns() {
 $("#item_page")
   .eq(0)
   .on("click", function () {
-    itemCode.val(generateItemCode());
+    itemId.val(generateItemCode());
     populateItemTBL();
   });
 
@@ -52,7 +78,6 @@ function populateItemTBL() {
                 <td>${item.itemName}</td>
                 <td>${item.price}</td>
                 <td>${item.qty}</td>
-                <td>${item.description}</td>
             </tr>`
       );
   });
@@ -84,24 +109,21 @@ function showValidationError(title, text) {
 }
 
 submit.on("click", function () {
-  let itemCodeValue = itemCode.val();
+  let itemCodeValue = itemId.val();
   let itemNameValue = itemName.val().trim();
   let priceValue = parseFloat(price.val());
   let qtyOnHandValue = parseInt(qty.val(), 10);
-  let descriptionValue = description.val().trim();
 
   if (
     validation(itemNameValue, "item name", null) &&
     validation(priceValue, "Price", null) &&
-    validation(qtyOnHandValue, "Qty On Hand", null) &&
-    validation(descriptionValue, "Description", null)
+    validation(qtyOnHandValue, "Qty On Hand", null)
   ) {
-    let item = new itemModel(
+    let item = new ItemModel(
       itemCodeValue,
       itemNameValue,
       priceValue,
-      qtyOnHandValue,
-      descriptionValue
+      qtyOnHandValue
     );
 
     Swal.fire("Save Successfully !", "Successful", "success");
@@ -118,13 +140,11 @@ $("#itemTable").on("click", "tbody tr", function () {
   let itemNameValue = $(this).find("td:eq(0)").text();
   let priceValue = $(this).find("td:eq(1)").text();
   let qtyValue = $(this).find("td:eq(2)").text();
-  let descriptionValue = $(this).find("td:eq(3)").text();
 
-  itemCode.val(itemCodeValue);
+  itemId.val(itemCodeValue);
   itemName.val(itemNameValue);
   price.val(priceValue);
   qty.val(qtyValue);
-  description.val(descriptionValue);
 
   submit.prop("disabled", true);
   delete_btn.prop("disabled", false);
@@ -132,24 +152,21 @@ $("#itemTable").on("click", "tbody tr", function () {
 });
 
 update.on("click", function () {
-  let itemCodeValue = itemCode.val();
+  let itemCodeValue = itemId.val();
   let itemNameValue = itemName.val().trim();
   let priceValue = parseFloat(price.val());
   let qtyOnHandValue = parseInt(qty.val(), 10);
-  let descriptionValue = description.val().trim();
 
   if (
     validation(itemNameValue, "item name", null) &&
     validation(priceValue, "Price", null) &&
-    validation(qtyOnHandValue, "Qty On Hand", null) &&
-    validation(descriptionValue, "Description", null)
+    validation(qtyOnHandValue, "Qty On Hand", null)
   ) {
     item_db.map((item) => {
       if (item.itemCode === itemCodeValue) {
         item.itemName = itemNameValue;
         item.price = priceValue;
         item.qty = qtyOnHandValue;
-        item.description = descriptionValue;
       }
     });
 
@@ -162,18 +179,17 @@ update.on("click", function () {
 
 reset.on("click", function (e) {
   e.preventDefault();
-  itemCode.val(generateItemCode());
+  itemId.val(generateItemCode());
   itemName.val("");
   price.val("");
   qty.val("");
-  description.val("");
   submit.prop("disabled", false);
   delete_btn.prop("disabled", true);
   update.prop("disabled", true);
 });
 
 delete_btn.on("click", function () {
-  let itemCodeValue = itemCode.val();
+  let itemCodeValue = itemId.val();
 
   Swal.fire({
     title: "Are you sure?",
